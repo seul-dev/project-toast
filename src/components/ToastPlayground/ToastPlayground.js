@@ -12,7 +12,8 @@ function ToastPlayground() {
   const [message, setMessage] = React.useState('');
   const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
 
-  const { createToast } = React.useContext(ToastContext);
+  const { createToast, dismissAllToasts } = React.useContext(ToastContext);
+
   const handleCreateToast = (e) => {
     e.preventDefault();
 
@@ -21,6 +22,18 @@ function ToastPlayground() {
     setMessage('');
     setVariant(VARIANT_OPTIONS[0]);
   };
+
+  React.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.code === 'Escape') {
+        dismissAllToasts();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [dismissAllToasts]);
 
   return (
     <div className={styles.wrapper}>
