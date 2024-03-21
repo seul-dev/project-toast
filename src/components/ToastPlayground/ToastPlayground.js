@@ -19,13 +19,11 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      <Toast
-        isShow={isShow}
-        variant={variant}
-        handleDismiss={() => setIsShow(false)}
-      >
-        {message}
-      </Toast>
+      {isShow && (
+        <Toast variant={variant} handleDismiss={() => setIsShow(false)}>
+          {message}
+        </Toast>
+      )}
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
           <label
